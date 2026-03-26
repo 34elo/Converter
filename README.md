@@ -6,14 +6,12 @@
 
 - Python 3.8+
 - openpyxl
-- pyinstaller
 
 ## Установка
 
 ```bash
 cd src
 pip install -r requirements.txt
-pip install pyinstaller
 ```
 
 ## Запуск
@@ -30,17 +28,20 @@ python main.py
    > **Важно:** данные должны быть в первом столбце таблицы.
 3. Проверьте список в предпросмотре данных.
 4. При необходимости измените параметры XML:
-   - `action_id` — идентификатор операции
-   - `version` — версия формата
-   - `inn` — ИНН участника
+   - `action_id`
+   - `version`
+   - `inn`
 5. Нажмите **"Сохранить как .xml"** и выберите место сохранения.
 6. XML файл создан.
 
 ## Сборка .exe
 
 ```bash
+pip install pyinstaller
 pyinstaller --onefile --windowed src/main.py
 ```
+
+Готовая программа будет в папке `dist/`.
 
 ## Структура проекта
 
