@@ -1,47 +1,66 @@
-# XLSX → XML Converter
+# Tools
 
+Набор утилит для работы с файлами.
+
+## Приложения
+
+### Spreadsheet Converter
 Конвертер данных из Excel (xlsx) в XML формат.
 
-## Требования
+### XML Transform
+Просмотр и преобразование XML файлов.
 
+---
+
+## Spreadsheet Converter
+
+### Требования
 - Python 3.8+
 - openpyxl
 
-## Установка
-
+### Установка
 ```bash
-cd src
+cd src/apps/spreadsheet_converter
 pip install -r requirements.txt
 ```
 
-## Запуск
-
+### Запуск
 ```bash
-cd src
+cd src/apps/spreadsheet_converter
 python main.py
 ```
 
-## Использование
-
-1. Запустите программу: `python main.py`
-2. Нажмите **"Выбрать .xlsx файл"** и укажите файл Excel.
-   > **Важно:** данные должны быть в первом столбце таблицы.
-3. Проверьте список в предпросмотре данных.
-4. При необходимости измените параметры XML:
-   - `action_id`
-   - `version`
-   - `inn`
-5. Нажмите **"Сохранить как .xml"** и выберите место сохранения.
-6. XML файл создан.
-
-## Сборка .exe
-
+### Сборка .exe
 ```bash
 pip install pyinstaller
-pyinstaller --onefile --windowed src/main.py
+pyinstaller --onefile --windowed src/apps/spreadsheet_converter/main.py
 ```
 
-Готовая программа будет в папке `dist/`.
+---
+
+## XML Transform
+
+### Требования
+- Python 3.8+
+
+### Установка
+```bash
+cd src/apps/xml_transform
+```
+
+### Запуск
+```bash
+cd src/apps/xml_transform
+python main.py
+```
+
+### Сборка .exe
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed src/apps/xml_transform/main.py
+```
+
+---
 
 ## Структура проекта
 
@@ -50,13 +69,22 @@ pars/
 ├── .gitignore
 ├── README.md
 └── src/
-    ├── config.py          # настройки по умолчанию
-    ├── main.py            # точка входа
-    ├── processor/         # логика обработки
-    │   ├── __init__.py
-    │   ├── reader.py      # чтение xlsx
-    │   └── generator.py   # генерация xml
-    └── ui/                # интерфейс
-        ├── __init__.py
-        └── app.py         # приложение
+    └── apps/
+        ├── spreadsheet_converter/
+        │   ├── config.py
+        │   ├── main.py
+        │   ├── requirements.txt
+        │   ├── processor/
+        │   │   ├── __init__.py
+        │   │   ├── reader.py
+        │   │   └── generator.py
+        │   └── ui/
+        │       └── app.py
+        └── xml_transform/
+            ├── main.py
+            ├── processor/
+            │   ├── __init__.py
+            │   └── xml_processor.py
+            └── ui/
+                └── app.py
 ```

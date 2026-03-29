@@ -1,7 +1,7 @@
 import openpyxl
 
 
-def read_first_column(file_path):
+def read(file_path):
     """Читает значения из первого столбца xlsx файла."""
     wb = openpyxl.load_workbook(file_path)
     ws = wb.active

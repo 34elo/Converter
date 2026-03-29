@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import os
 
-from processor import read_first_column, generate_xml
+from processor import read, generate
 from config import DEFAULTS
 
 
@@ -11,8 +11,8 @@ class App:
     
     def __init__(self, root):
         self.root = root
-        self.root.title('XLSX → XML Converter')
-        self.root.geometry('700x600')
+        self.root.title('Spreadsheet Converter')
+        self.root.geometry('1200x800')
         self.root.configure(bg='#f0f0f0')
         self.root.resizable(True, True)
 
@@ -22,10 +22,9 @@ class App:
         main_frame = ttk.Frame(root, padding='20')
         main_frame.pack(fill='both', expand=True)
 
-        # Блок выбора файла
         file_frame = ttk.LabelFrame(
             main_frame,
-            text='Для корректной работы программы, значение в таблице .xlsx должны быть в первом столбце',
+            text='Выберите .xlsx файл (данные должны быть в первом столбце)',
             padding='10'
         )
         file_frame.pack(fill='x', pady=(0, 15))
@@ -34,7 +33,7 @@ class App:
         file_row.pack(fill='x')
 
         self.file_btn = ttk.Button(
-            file_row, text='Выбрать .xlsx файл',
+            file_row, text='Выбрать файл',
             command=self.select_file, width=20
         )
         self.file_btn.pack(side='left')
@@ -45,8 +44,7 @@ class App:
         )
         self.file_label.pack(side='left', padx=15, fill='x', expand=True)
 
-        # Блок предпросмотра
-        preview_frame = ttk.LabelFrame(main_frame, text='Предпросмотр данных', padding='10')
+        preview_frame = ttk.LabelFrame(main_frame, text='Предпросмотр', padding='10')
         preview_frame.pack(fill='both', expand=True, pady=(0, 15))
 
         columns = ('#', 'Значение', 'Длина')
@@ -72,7 +70,6 @@ class App:
         )
         self.count_label.pack(anchor='e', pady=(5, 0))
 
-        # Блок параметров
         params_frame = ttk.LabelFrame(main_frame, text='Параметры XML', padding='10')
         params_frame.pack(fill='x', pady=(0, 15))
 
@@ -88,7 +85,7 @@ class App:
 
         self.save_btn = ttk.Button(
             main_frame, text='Сохранить как .xml',
-            command=self.save_file, style='Accent.TButton'
+            command=self.save_file
         )
         self.save_btn.pack(pady=5)
 
@@ -103,7 +100,7 @@ class App:
             self.file_label.config(text=os.path.basename(path))
 
             try:
-                self.values = read_first_column(path)
+                self.values = read(path)
                 self.update_preview()
             except Exception as e:
                 messagebox.showerror('Ошибка', f'Не удалось прочитать файл:\n{e}')
@@ -142,8 +139,11 @@ class App:
             version = self.entries['version'].get()
             inn = self.entries['inn'].get()
 
-            count = generate_xml(self.values, action_id, version, inn, output_path)
-            messagebox.showinfo('Готово', f'Файл сохранён.\nЗаписей: {count}')
+            content = generate(self.values, action_id, version, inn)
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            messagebox.showinfo('Готово', f'Файл сохранён.\nЗаписей: {len(self.values)}')
 
         except Exception as e:
             messagebox.showerror('Ошибка', str(e))
