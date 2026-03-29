@@ -1,4 +1,4 @@
-# Tools
+# Util-Tools
 
 Набор утилит для работы с файлами.
 
@@ -8,7 +8,7 @@
 Конвертер данных из Excel (xlsx) в XML формат.
 
 ### XML Transform
-Просмотр и преобразование XML файлов.
+Преобразование XML файлов из формата 1 в формат 2.
 
 ---
 
@@ -43,11 +43,6 @@ pyinstaller --onefile --windowed src/apps/spreadsheet_converter/main.py
 ### Требования
 - Python 3.8+
 
-### Установка
-```bash
-cd src/apps/xml_transform
-```
-
 ### Запуск
 ```bash
 cd src/apps/xml_transform
@@ -65,7 +60,7 @@ pyinstaller --onefile --windowed src/apps/xml_transform/main.py
 ## Структура проекта
 
 ```
-pars/
+util-tools/
 ├── .gitignore
 ├── README.md
 └── src/
@@ -81,7 +76,9 @@ pars/
         │   └── ui/
         │       └── app.py
         └── xml_transform/
+            ├── config.py
             ├── main.py
+            ├── requirements.txt
             ├── processor/
             │   ├── __init__.py
             │   └── xml_processor.py
